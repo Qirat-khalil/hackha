@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>COVID Admin Panel</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+<div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow rounded">
+
+  <h1 class="text-2xl font-bold mb-6 text-center">Admin Panel (COVID-19 Survey)</h1>
+
+  <!-- ADD QUESTION FORM -->
+  <div class="border p-5 rounded bg-gray-50">
+    <h2 class="text-xl font-semibold mb-3">Add New Question</h2>
+    <form id="questionForm" class="space-y-3">
+
+      <input id="qText" class="w-full border p-2 rounded" placeholder="Enter question" required />
+
+      <select id="qType" class="w-full border p-2 rounded">
+        <option value="multiple">Multiple Choice</option>
+        <option value="truefalse">True / False</option>
+        <option value="info">Information Only</option>
+      </select>
+
+      <div id="mcqOptions" class="space-y-2">
+        <input class="opt w-full border p-2 rounded" placeholder="Option 1" />
+        <input class="opt w-full border p-2 rounded" placeholder="Option 2" />
+        <input class="opt w-full border p-2 rounded" placeholder="Option 3" />
+        <input class="opt w-full border p-2 rounded" placeholder="Option 4" />
+      </div>
+
+      <div id="trueFalse" class="hidden">
+        <label class="flex gap-2 items-center"><input type="radio" name="tf" value="True" /> True</label>
+        <label class="flex gap-2 items-center"><input type="radio" name="tf" value="False" /> False</label>
+      </div>
+
+      <input id="correctAnswer" class="w-full border p-2 rounded" placeholder="Correct Answer" />
+      <input id="passMsg" class="w-full border p-2 rounded" placeholder="Pass Message" />
+      <input id="failMsg" class="w-full border p-2 rounded" placeholder="Fail Message" />
+
+      <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Add Question</button>
+    </form>
+  </div>
+
+  <!-- QUESTIONS LIST -->
+  <div class="mt-10">
+    <h2 class="text-xl font-semibold mb-3">Survey Questions List</h2>
+    <div id="questionsList" class="space-y-3 border p-4 rounded bg-gray-50 max-h-64 overflow-y-auto"></div>
+  </div>
+
+  <!-- USERS REPORT -->
+  <div class="mt-10">
+    <h2 class="text-xl font-semibold mb-3">Users Result Report</h2>
+    <div id="usersReport" class="space-y-3 border p-4 rounded bg-gray-50 max-h-64 overflow-y-auto"></div>
+  </div>
+
+</div>
+
+<script type="module" src="adminPage.js">
+
+// // DOM Elements
+// const qText = document.getElementById("qText")
+// const qType = document.getElementById("qType")
+// const correctAnswer = document.getElementById("correctAnswer")
+// const passMsg = document.getElementById("passMsg")
+// const failMsg = document.getElementById("failMsg")
+// const mcqOptions = document.getElementById("mcqOptions")
+// const trueFalse = document.getElementById("trueFalse")
+// const questionsList = document.getElementById("questionsList")
+// const usersReport = document.getElementById("usersReport")
+
+// // Show/hide options
+// qType.addEventListener("change", () => {
+//   if(qType.value==="multiple"){ mcqOptions.classList.remove("hidden"); trueFalse.classList.add("hidden"); correctAnswer.placeholder="Correct Option"}
+//   else if(qType.value==="truefalse"){ mcqOptions.classList.add("hidden"); trueFalse.classList.remove("hidden"); correctAnswer.placeholder="True / False"}
+//   else{ mcqOptions.classList.add("hidden"); trueFalse.classList.add("hidden"); correctAnswer.placeholder="No answer"}
+// })
+
+// // Add Question
+// document.getElementById("questionForm").addEventListener("submit", async e=>{
+//   e.preventDefault()
+//   let options=[]
+//   if(qType.value==="multiple"){
+//     options = Array.from(document.querySelectorAll(".opt"))
+//                   .map(o=>o.value.trim())
+//                   .filter(o=>o!=="")
+//   }
+//   let correct=correctAnswer.value.trim()
+//   if(qType.value==="truefalse"){
+//     const checked=document.querySelector("input[name='tf']:checked")
+//     correct=checked?checked.value:""
+//   }
+
+//   const { error } = await supabase.from("survey_questions").insert([{
+//     question_text: qText.value.trim(),
+//     type: qType.value,
+//     options: options.length ? options : null,
+//     correct_answer: correct || null,
+//     pass_message: passMsg.value || "Pass",
+//     fail_message: failMsg.value || "Fail"
+//   }])
+//   if(error) return alert("Error: "+error.message)
+//   document.getElementById("questionForm").reset()
+//   mcqOptions.classList.remove("hidden"); trueFalse.classList.add("hidden")
+//   loadQuestions()
+// })
+
+// // Load Questions
+// async function loadQuestions(){
+//   const {data,error}=await supabase.from("survey_questions").select("*").order("id",{ascending:true})
+//   if(error) return console.log(error)
+//   questionsList.innerHTML=""
+//   data.forEach((q,i)=>{
+//     let optionsHTML=""
+//     if(q.type==="multiple" && Array.isArray(q.options) && q.options.length){ optionsHTML=`<ul class="list-disc ml-5 mt-1">${q.options.map(o=>`<li>${o}</li>`).join("")}</ul>` }
+//     else if(q.type==="truefalse"){ optionsHTML="<p>True / False</p>" }
+//     else{ optionsHTML="<p class='text-gray-500'>Information Only</p>" }
+//     questionsList.innerHTML+=`
+//       <div class="p-3 bg-white border rounded shadow">
+//         <p><b>${i+1}.</b> ${q.question_text}</p>
+//         <p class="text-sm text-gray-600">Type: ${q.type}</p>
+//         ${optionsHTML}
+//         <p><b>Correct:</b> ${q.correct_answer||"-"}</p>
+//         <p><b>Pass:</b> ${q.pass_message}</p>
+//         <p><b>Fail:</b> ${q.fail_message}</p>
+//       </div>`
+//   })
+// }
+
+// // Load User Results
+// async function loadUsersResults(){
+//   const {data,error}=await supabase.from("survey_results").select("*,users(*)").order("id",{ascending:true})
+//   if(error) return console.log(error)
+//   usersReport.innerHTML=""
+//   data.forEach(u=>{
+//     const answersHTML=u.answers?u.answers.map(a=>`<div class="p-2 mb-2 border rounded bg-gray-50"><p><b>Q:</b> ${a.question}</p><p><b>Answer:</b> ${a.answer}</p></div>`).join(""):""
+//     usersReport.innerHTML+=`
+//       <div class="p-4 bg-white border rounded shadow">
+//         <p><b>Name:</b> ${u.users?.name||"N/A"}</p>
+//         <p><b>Email:</b> ${u.users?.email}</p>
+//         <p><b>Score:</b> ${u.score}</p>
+//         <p><b>Result:</b> ${u.result}</p>
+//         <details class="mt-2"><summary class="cursor-pointer text-blue-600">View Answers</summary><div class="mt-2">${answersHTML}</div></details>
+//       </div>`
+//   })
+// }
+
+// // Initial load
+// loadQuestions()
+// loadUsersResults()
+</script>
+
+</body>
+</html>
