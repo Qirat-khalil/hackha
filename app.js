@@ -1,7 +1,7 @@
 const btn = document.getElementById("menu-btn");
 const menu = document.getElementById("mobile-menu");
 
-btn.addEventListener("click", () => {
+btn && btn.addEventListener("click", () => {
   menu.classList.toggle("hidden");
 });
 
@@ -78,28 +78,12 @@ function attachTaskEvents(cardContainer) {
           showButton.classList.add("hidden");
         });
 
-        // Drag Events
-        // li.addEventListener("dragstart", () => {
-        //   draggedItem = li;
-        //   setTimeout(() => li.classList.add("opacity-50"), 0);
-        // });
-
-        // li.addEventListener("dragend", () => {
-        //   draggedItem = null;
-        //   li.classList.remove("opacity-50");
-        // });
+ 
       }
     });
   });
 
-  // taskUl.forEach((ul) => {
-  //   ul.addEventListener("dragover", (e) => e.preventDefault());
-  //   ul.addEventListener("drop", (e) => {
-  //     if (draggedItem) {
-  //       ul.appendChild(draggedItem);
-  //     }
-  //   });
-  // });
+
 }
 
 document.querySelectorAll(".card-container").forEach((card) => attachTaskEvents(card));
@@ -169,10 +153,3 @@ savelist.forEach((btn1, ind) => {
   });
 });
 
-
-let mode = document.querySelector(".mode")
-let body =document.body
-
-mode.addEventListener("click",()=>{
-    body.classList.toggle("dark-mode")
-})
