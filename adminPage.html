@@ -9,107 +9,136 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body>
+<body class="bg-gradient-to-br from-purple-200 via-slate-100 to-emerald-100 min-h-screen">
 
-    <div  class="bg-gradient-to-br from-slate-100 via-slate-200 to-slate-300 px-12 py-8  min-h-screen p-4">
-    <div class=" w-full  bg-purple-100 rounded-3xl shadow-2xl p-7 border border-slate-300 space-y-6">
+    <!-- MAIN DASHBOARD LAYOUT -->
+    <div class="flex min-h-screen">
 
-        
-        <div class="text-center">
-            <h1 class="text-3xl font-extrabold text-emerald-700 mb-1 tracking-wide">
-                Admin Dashboard
+        <!-- SIDEBAR -->
+        <aside class="w-[270px] bg-white/60 backdrop-blur-xl shadow-2xl border-r border-white/40 p-6 flex flex-col">
+            <h1 class="text-3xl font-extrabold text-purple-700 mb-8 tracking-wide text-center">
+                Admin Panel
             </h1>
 
-        </div>
+            <nav class="space-y-3 text-lg font-semibold">
+                <button id="addquestion" class="w-full text-left bg-purple-200/70 hover:bg-purple-300 py-3 px-4 rounded-xl shadow transition">
+                    ➤ Add Questions
+                </button>
 
-        <h2 class="text-xl font-semibold text-slate-800 border-l-4 border-emerald-600 pl-3">
-            Add Survey Question
-        </h2>
+                <button class="w-full text-left bg-emerald-200/70 hover:bg-emerald-300 py-3 px-4 rounded-xl shadow transition">
+                    ➤ User Responses
+                </button>
 
-       
-        <div>
-            <label class="block font-semibold mb-2 text-slate-700">Select Question Type:</label>
-            <select id="qType" onchange="showForm()"
-                class="w-full p-5 rounded-xl bg-slate-50 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 hover:border-emerald-500 transition">
-                <option value="">-- Select Type --</option>
-                <option value="multiple">Multiple Choice</option>
-                <option value="tf">True / False</option>
-                <option value="data">Data (Info Only)</option>
-            </select>
-        </div>
+                <button class="w-full text-left bg-slate-200/70 hover:bg-slate-300 py-3 px-4 rounded-xl shadow transition">
+                    ➤ Settings
+                </button>
 
-       
-        <div id="multipleForm"
-            class="hidden bg-slate-50 p-5 rounded-2xl border border-slate-300 shadow-inner space-y-3">
-            <textarea id="mq" placeholder="Enter your question..."
-                class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-600 bg-white"></textarea>
+                <button id="adminlogout" class="w-full text-left bg-red-200/70 hover:bg-red-300 py-3 px-4 rounded-xl shadow transition">
+                    ➤ Logout
+                </button>
+            </nav>
 
-            <input id="ma" placeholder="Option A"
-                class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-600 bg-white">
+            <div class="mt-auto text-center pt-10 text-slate-600 text-sm">
+                © 2025 Admin Dashboard
+            </div>
+        </aside>
 
-            <input id="mb" placeholder="Option B"
-                class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-600 bg-white">
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-1 p-10">
 
-            <input id="mc" placeholder="Option C"
-                class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-600 bg-white">
+            <!-- GLASS CARD -->
+            <div class="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 border border-slate-200">
 
-            <input id="md" placeholder="Option D"
-                class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-600 bg-white">
+                <h2 class="text-3xl font-bold text-purple-700 text-center mb-6">
+                    Add Survey Question
+                </h2>
 
-            <select id="mcorrect"
-                class="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-600 bg-white">
-                <option value="">Select Correct Answer</option>
-                <option value="A">Option A</option>
-                <option value="B">Option B</option>
-                <option value="C">Option C</option>
-                <option value="D">Option D</option>
-            </select>
-        </div>
+                <div id="showscreen" class="space-y-6 hidden">
 
-        
-        <div id="tfForm" class="hidden bg-slate-50 p-5 rounded-2xl border border-slate-300 shadow-inner space-y-3">
-            <textarea id="tfq" placeholder="Enter your question..."
-                class="w-full p-3 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-emerald-600"></textarea>
+                    <!-- Question Type Dropdown -->
+                    <div>
+                        <label class="block font-semibold mb-2 text-slate-700">Select Question Type:</label>
+                        <select id="qType" onchange="showForm()"
+                            class="w-full p-4 rounded-xl bg-slate-50 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500 hover:border-purple-400 transition">
+                            <option value="">-- Select Type --</option>
+                            <option value="multiple">Multiple Choice</option>
+                            <option value="tf">True / False</option>
+                            <option value="data">Data (Info Only)</option>
+                        </select>
+                    </div>
 
-            <select id="tfCorrect"
-                class="w-full p-3 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-emerald-600">
-                <option value="True">True</option>
-                <option value="False">False</option>
-            </select>
-        </div>
+                    <!-- Multiple Choice Form -->
+                    <div id="multipleForm"
+                        class="hidden bg-white/80 p-5 rounded-2xl border border-purple-300 shadow-inner space-y-3">
+                        <textarea id="mq" placeholder="Enter your question..."
+                            class="w-full p-3 rounded-lg border border-purple-300 focus:ring-2 focus:ring-purple-600 bg-white"></textarea>
 
-    
-        <div id="dataForm" class="hidden bg-slate-50 p-5 rounded-2xl border border-slate-300 shadow-inner space-y-3">
-            <textarea id="dq" placeholder="Enter data question..."
-                class="w-full p-3 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-emerald-600"></textarea>
-            <p class="text-slate-500 text-sm italic">*No correct answer required for this question.</p>
-        </div>
+                        <input id="ma" placeholder="Option A"
+                            class="w-full p-3 rounded-lg border border-purple-300 bg-white focus:ring-2 focus:ring-purple-600">
 
-       
+                        <input id="mb" placeholder="Option B"
+                            class="w-full p-3 rounded-lg border border-purple-300 bg-white focus:ring-2 focus:ring-purple-600">
 
-    
+                        <input id="mc" placeholder="Option C"
+                            class="w-full p-3 rounded-lg border border-purple-300 bg-white focus:ring-2 focus:ring-purple-600">
 
+                        <input id="md" placeholder="Option D"
+                            class="w-full p-3 rounded-lg border border-purple-300 bg-white focus:ring-2 focus:ring-purple-600">
 
-       
+                        <select id="mcorrect"
+                            class="w-full p-3 rounded-lg border border-purple-300 focus:ring-2 focus:ring-purple-600 bg-white">
+                            <option value="">Select Correct Answer</option>
+                            <option value="A">Option A</option>
+                            <option value="B">Option B</option>
+                            <option value="C">Option C</option>
+                            <option value="D">Option D</option>
+                        </select>
+                         <!-- Save Button -->
+                    <button id="saveBtn1"
+                        class="w-full bg-purple-600 hover:bg-purple-700 py-3 rounded-xl font-bold text-white shadow-lg shadow-purple-300/50 transition active:scale-95">
+                        Save Question
+                    </button>
 
-        <button id="saveBtn1"
-            class="w-full bg-emerald-600 hover:bg-emerald-700 py-3 rounded-xl font-bold text-white shadow-lg shadow-emerald-300/50 transition active:scale-95">
-            Save Question
-        </button>
+                    </div>
 
+                    <!-- True False -->
+                    <div id="tfForm"
+                        class="hidden bg-white/80 p-5 rounded-2xl border border-emerald-300 shadow-inner space-y-3">
+                        <textarea id="trufalquse" placeholder="Enter your question..."
+                            class="w-full p-3 rounded-lg border border-emerald-300 bg-white focus:ring-2 focus:ring-emerald-600"></textarea>
 
-    </div> 
-    
-    
-    <div id="userResponses"></div>
-        
-   <div id="datashow" class=" text-balck mt-5"></div>
+                        <select id="tfCorrect"
+                            class="w-full p-3 rounded-lg border border-emerald-300 bg-white focus:ring-2 focus:ring-emerald-600">
+                            <option value="True">True</option>
+                            <option value="False">False</option>
+                        </select>
+                         <!-- Save Button -->
+                    <button id="saveBtn2"
+                        class="w-full bg-purple-600 hover:bg-purple-700 py-3 rounded-xl font-bold text-white shadow-lg shadow-purple-300/50 transition active:scale-95">
+                        Save Question
+                    </button>
 
+                    </div>
 
+                    <!-- Data Form -->
+                    <div id="dataForm"
+                        class="hidden bg-white/80 p-5 rounded-2xl border border-slate-300 shadow-inner space-y-3">
+                        <textarea id="dq" placeholder="Enter data question..."
+                            class="w-full p-3 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-slate-600"></textarea>
+                        <p class="text-slate-600 text-sm italic">*No correct answer required for this question.</p>
+                    </div>
 
-   </div>
+                   
+                </div>
+            </div>
+
+            <!-- USER RESPONSE AREA -->
+            <div id="datashow" class="mt-10"></div>
+
+        </main>
+    </div>
+
     <script>
-
         function showForm() {
             document.getElementById("multipleForm").classList.add("hidden");
             document.getElementById("tfForm").classList.add("hidden");
