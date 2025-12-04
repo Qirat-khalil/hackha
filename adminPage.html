@@ -7,7 +7,17 @@
     <title>Admin Survey Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
 </head>
+<style>
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.7);
+    border-radius: 20px;
+  }
+</style>
 
 <body class="bg-gradient-to-br from-purple-200 via-slate-100 to-emerald-100 min-h-screen">
 
@@ -25,8 +35,8 @@
                     ➤ Add Questions
                 </button>
 
-                <button class="w-full text-left bg-emerald-200/70 hover:bg-emerald-300 py-3 px-4 rounded-xl shadow transition">
-                    ➤ User Responses
+                <button id="userResdetail" class="w-full text-left bg-emerald-200/70 hover:bg-emerald-300 py-3 px-4 rounded-xl shadow transition">
+                   <a href="userDetail.html"> ➤ User Responses</a>
                 </button>
 
                 <button class="w-full text-left bg-slate-200/70 hover:bg-slate-300 py-3 px-4 rounded-xl shadow transition">
@@ -50,7 +60,7 @@
             <div class="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 border border-slate-200">
 
                 <h2 class="text-3xl font-bold text-purple-700 text-center mb-6">
-                    Add Survey Question
+                    Admin Dashboard
                 </h2>
 
                 <div id="showscreen" class="space-y-6 hidden">

@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Dashboard / Survey</title>
   <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     body {
-      background: linear-gradient(135deg, #b0f1d7, #8d99ac, #b7a1cc);
-      background-size: 300% 300%;
       animation: gradientShift 10s ease infinite;
     }
 
@@ -20,45 +18,61 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .option-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(147, 51, 234, 0.25);
+    }
   </style>
 
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen bg-gradient-to-br from-purple-200 via-slate-100 to-emerald-100">
 
-  <div class="max-w-3xl flex justify-between items-center mx-auto mt-10 py-2 bg-white/40 backdrop-blur-xl shadow-xl rounded-2xl border border-white/20">
-    <h1 class="text-3xl font-bold mb-6  text-white drop-shadow-lg tracking-wide ">
-      ✨ Survey Form
+  <!-- Top Navbar -->
+  <div class="max-w-5xl mx-auto mt-10 px-6 py-4 glass-card rounded-3xl flex justify-between items-center">
+    <h1 class="text-3xl font-extrabold text-black/50  drop-shadow-lg tracking-wide">
+       Covid Survey 
     </h1>
-    <button id="userlogout" class="py-2 px-4 font-bold bg-blue-600 rounded-2xl">Log Out</button>
+
+    <button id="userlogout"
+      class="py-2 px-5 font-semibold text-white text-lg rounded-2xl bg-gradient-to-r from-purple-600 to-pink-500 hover:from-pink-500 hover:to-purple-600 transition duration-300 shadow-lg active:scale-95">
+      Log Out
+    </button>
   </div>
 
-  <div class="items-center mx-auto flex flex-col justify-center max-w-3xl mt-8">
+  <!-- User Info -->
+  <div class="max-w-4xl mx-auto mt-8 text-center space-y-4">
 
-    <div id="showQuestion" class="max-w-3xl w-full">
-      <div class="text-center mb-5">
-        <span class="text-xl font-semibold text-white bg-black/30 px-4 py-2 rounded-xl shadow">
-          👤 <span id="username"></span>
-        </span>
-        
-        <span class="text-xl font-semibold text-white bg-black/30 px-4 py-2 rounded-xl shadow ml-3">
-          📧 <span id="useremail"></span>
-        </span>
-      </div>
-      
+    <div class="inline-block px-6 py-3 glass-card rounded-2xl text-xl font-bold text-gray-900 shadow-lg">
+      👤 Name: <span id="username" class="text-purple-700"></span>
     </div>
-    <div id="tfques"></div>
 
-    <div class="items-center mt-8 flex justify-center mb-8">
-      <button id="subResBtn"
-        class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-purple-600 hover:to-pink-500 transition-all duration-500 text-white font-bold text-xl shadow-xl px-10 py-4 rounded-full active:scale-95">
-         Submit Form
-      </button>
+    <div class="inline-block px-6 py-3 glass-card rounded-2xl text-xl font-bold text-gray-900 shadow-lg ml-4">
+      📧 Email: <span id="useremail" class="text-purple-700"></span>
     </div>
+
+  </div>
+
+  <!-- Questions Container -->
+  <div id="showQuestion" class="max-w-4xl mx-auto mt-10 mb-20"></div>
+
+  <!-- Submit Button -->
+  <div class="flex justify-center mb-10">
+    <button id="subResBtn"
+      class="bg-gradient-to-r from-purple-600 to-pink-500 hover:from-pink-500 hover:to-purple-600 transition-all duration-500 text-white font-bold text-2xl shadow-2xl px-12 py-4 rounded-full active:scale-95">
+      Submit Form
+    </button>
   </div>
 
   <script type="module" src="user.js"></script>
 
 </body>
-
 </html>
